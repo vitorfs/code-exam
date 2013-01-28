@@ -4,7 +4,11 @@ class QuestionSubject(models.Model):
     subject = models.CharField(max_length=50)
 
     def __unicode__(self):
-        return self.subject    
+        return self.subject
+
+    class Meta:
+        verbose_name = "Assunto de Questão"
+        verbose_name_plural = "Assuntos de Questões"
 
 class QuestionDificulty(models.Model):
     dificulty = models.CharField(max_length=50)
@@ -13,11 +17,19 @@ class QuestionDificulty(models.Model):
     def __unicode__(self):
         return self.dificulty
 
+    class Meta:
+        verbose_name = "Dificuldade de Questão"
+        verbose_name_plural = "Dificuldades de Questões"
+
 class QuestionType(models.Model):
     type = models.CharField(max_length=30)
 
     def __unicode__(self):
         return self.type
+
+    class Meta:
+        verbose_name = "Tipo de Questão"
+        verbose_name_plural = "Tipos de Questões"
 
 class Question(models.Model):
     question = models.CharField(max_length=200)
@@ -44,11 +56,19 @@ class Answer(models.Model):
     def __unicode__(self):
         return self.answer
 
+    class Meta:
+        verbose_name = "Resposta"
+        verbose_name_plural = "Respostas"
+
 class ExamSubject(models.Model):
     subject = models.CharField(max_length=50)
 
     def __unicode__(self):
-        return self.subject    
+        return self.subject
+
+    class Meta:
+        verbose_name = "Assunto de Prova"
+        verbose_name_plural = "Assuntos de Provas"
 
 class Exam(models.Model):
     name = models.CharField(max_length=50)
@@ -58,4 +78,8 @@ class Exam(models.Model):
     duration = models.IntegerField()
 
     def __unicode__(self):
-        return self.name        
+        return self.name
+
+    class Meta:
+        verbose_name = "Prova"
+        verbose_name_plural = "Provas"
