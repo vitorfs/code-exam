@@ -125,9 +125,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.admindocs',
-    'core',
     'exams',
-    'exam_assign'
 )
 
 # A sample logging configuration. The only tangible logging
