@@ -7,9 +7,9 @@ class AnswerInline(admin.TabularInline):
     extra = 3
 
 class QuestionAdmin(admin.ModelAdmin):
-    inlines = [AnswerInline]
     list_display = ['question','subject','type','dificulty','active']
     list_filter = ['type','dificulty','active']
+    inlines = [AnswerInline]
     search_fields = ['question', 'subject__subject']
 
 class UserExamAdmin(admin.ModelAdmin):
