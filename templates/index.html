@@ -1,42 +1,37 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Code Exam</title>
-  <link type="text/css" href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet" media="screen" />
-  <link type="text/css" href="{{ STATIC_URL }}css/bootstrap-responsive.min.css" rel="stylesheet" media="screen" />  
-  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.9.0.min.js"></script>
-  <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
-</head>
-<body>
-    <div class="navbar navbar-inverse">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="brand" href="#">Code Exam</a>
-          <div class="nav-collapse collapse">
-            <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#about">Sobre</a></li>
-              <li><a href="#contact">Contact</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+{% extends 'base.html' %}
 
-    <div class="container">
-      <h1>Code Exam</h1>
-      <div class="pagination">
-        <ul>
-          <li class="disabled"><a href="#">Anterior</a></li>
-          <li class="active"><a href="#">1</a></li>
-          <li><a href="#">2</a></li>
-          <li><a href="#">3</a></li>
-          <li><a href="#">4</a></li>
-          <li><a href="#">5</a></li>
-          <li><a href="#">Próximo</a></li>
-        </ul>
-      </div>
-    </div>
-</body>
-</html>
+{% block title %}
+Code Exam
+{% endblock title %}
+
+{% block content %}
+  <h2>Minhas Provas</h2>
+  {% if user_exam_list %}
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Prova</th>
+            <th>Data Limite</th>
+            <th>Status</th>
+            <th>Ação</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for exam in user_exam_list %}
+            <tr>
+              <td>{{exam.id}}</td>
+              <td>{{exam.exam}}</td>
+              <td>{{exam.expire_date}}</td>
+              <td></td>
+              <td>
+                <a href="/prova/{{exam.id}}/questao/1/" class="btn btn-small btn-success"><i class="icon-play icon-white"></i> Iniciar Prova</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+  {% else %}
+      <p>Nenhuma prova cadastrada.</p>
+  {% endif %}
+{% endblock content %}

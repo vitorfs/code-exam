@@ -23,17 +23,7 @@ class QuestionDificulty(models.Model):
     class Meta:
         verbose_name = "Dificuldade Questão"
         verbose_name_plural = "Dificuldades Questões"
-'''
-class QuestionType(models.Model):
-    type = models.CharField(max_length=30)
 
-    def __unicode__(self):
-        return self.type
-
-    class Meta:
-        verbose_name = "Tipo Questão"
-        verbose_name_plural = "Tipos Questões"
-'''
 class Question(models.Model):
     QUESTION_TYPES = (
         (u'O', u'Open'),
@@ -43,7 +33,6 @@ class Question(models.Model):
     question = models.CharField(max_length=200)
     example = models.TextField(max_length=2000)
     subject = models.ForeignKey(QuestionSubject)
-    #type = models.ForeignKey(QuestionType)
     type = models.CharField(max_length=1, choices=QUESTION_TYPES)
     dificulty = models.ForeignKey(QuestionDificulty)
     image = models.CharField(max_length=200, blank=True)
