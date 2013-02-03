@@ -5,6 +5,9 @@ Code Exam
 {% endblock title %}
 
 {% block content %}
+  <ul class="breadcrumb">
+    <li class="active">Home</li>
+  </ul>
   <h2>Minhas Provas</h2>
   {% if user_exam_list %}
       <table class="table table-bordered table-striped">
@@ -25,7 +28,7 @@ Code Exam
               <td>{{exam.expire_date}}</td>
               <td></td>
               <td>
-                <a href="/prova/{{exam.id}}/questao/1/" class="btn btn-small btn-success"><i class="icon-play icon-white"></i> Iniciar Prova</a>
+                <a href="/prova/{{exam.id}}/" class="btn btn-small btn-success"><i class="icon-ok icon-white"></i> Iniciar Prova</a>
               </td>
             </tr>
           {% endfor %}

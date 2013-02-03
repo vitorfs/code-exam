@@ -1,7 +1,7 @@
 # coding: utf-8
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
-from exams.models import UserExam
+from exams.models import UserExam, Question
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as django_login, logout as django_logout
 
@@ -13,11 +13,16 @@ def homepage(request):
     else:
         return redirect('/login/')
 
-def prova(request, exam_id):
+def exam(request, exam_id):
     user_exam = UserExam.objects.get(pk=int(exam_id))
     context = RequestContext(request, { 'user_exam': user_exam })
     return render_to_response('home/exam.html', context)
 
+def question(request, exam_id, question_id):
+    user_exam = UserExam.objects.get(pk=int(exam_id))
+    question = Question.objects.get(pk=int(question_id))
+    context = RequestContext(request, { 'user_exam': user_exam, 'question': question })
+    return render_to_response('home/question.html', context)
 
 def login(request):
     if request.method == 'POST':

@@ -1,9 +1,22 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Code Exam
+Code Exam - {{ user_exam.exam }}
 {% endblock title %}
 
 {% block content %}
+  <ul class="breadcrumb">
+    <li><a href="/">Home</a> <span class="divider">/</span></li>
+    <li class="active">Prova</li>
+  </ul>
   <h2>{{ user_exam.exam }}</h2>
+  {% if user_exam.exam.questions %}
+    <ol>
+      {% for question in user_exam.exam.questions.all %}
+        <li><a href="/prova/{{user_exam.id}}/questao/{{question.id}}">{{ question.question }}</a></li>
+      {% endfor %}
+    </ol>
+  {% else %}
+    <p>Nenhuma questão cadastrada.</p>
+  {% endif %}
 {% endblock content %}
