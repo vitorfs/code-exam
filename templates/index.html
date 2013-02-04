@@ -1,9 +1,5 @@
 {% extends 'base.html' %}
 
-{% block title %}
-Code Exam
-{% endblock title %}
-
 {% block content %}
   <ul class="breadcrumb">
     <li class="active">Home</li>
@@ -28,7 +24,7 @@ Code Exam
               <td>{{exam.expire_date}}</td>
               <td>0%</td>
               <td>
-                <a href="/prova/{{exam.id}}/" class="btn btn-small btn-success"><i class="icon-ok icon-white"></i> Iniciar Prova</a>
+                <a href="/prova/{{exam.id}}/" class="btn btn-success"><i class="icon-ok icon-white"></i> Iniciar Prova</a>
               </td>
             </tr>
           {% endfor %}

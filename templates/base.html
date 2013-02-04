@@ -2,11 +2,13 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>{% block title %}{% endblock title %}</title>
+  <title>{% block title %}Code Exam{% endblock %}</title>
   <link type="text/css" href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet" media="screen" />
   <link type="text/css" href="{{ STATIC_URL }}css/bootstrap-responsive.min.css" rel="stylesheet" media="screen" />  
   <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.9.0.min.js"></script>
   <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+  {% block head_extra %}
+  {% endblock head_extra %}
 </head>
 <body>
     <div class="navbar navbar-inverse">
@@ -16,13 +18,20 @@
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-              <li><a href="/minhas-provas/">Minhas Provas</a></li>
               <li><a href="/sobre/">Sobre</a></li>
               <li><a href="/contato/">Contato</a></li>
             </ul>
             <ul class="nav pull-right">
               {% if user %}
-                <li><a href="/logout/">Logout</a></li>
+                <li class="dropdown">
+                  <a data-toggle="dropdown" class="dropdown-toggle" href="#">{{ user.first_name }} <b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="/admin/"><i class="icon-wrench"></i> Administrativo</a></li>
+                    <li><a href="/minhas-provas/"><i class="icon-folder-open"></i> Minhas Provas</a></li>
+                    <li class="divider"></li>
+                    <li><a href="/logout/"><i class="icon-off"></i> Logout</a></li>
+                  </ul>
+                </li>              
               {% else %}
                 <li><a href="/login/">Login</a></li>
               {% endif %}
@@ -38,8 +47,9 @@
               <button type="button" class="close" data-dismiss="alert">&times;</button>
               {{ message }}
           </div>        
-        {% endfor %}      
+        {% endfor %}
       {% endif %}
+
       {% block content %}
       {% endblock content %}
     </div>

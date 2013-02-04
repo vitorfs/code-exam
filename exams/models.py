@@ -105,6 +105,11 @@ class UserExam(models.Model):
     has_expired.boolean = True
     has_expired.short_description = 'Prazo Expirou?'
 
+    def get_progress(self):
+        total_questions = self.exam.questions.count()
+        answered_questions = UserExamAnswers.objects.filter(user_exam__id=self.id).count()
+        return answered_questions / total_questions
+
     class Meta:
         verbose_name = "Aplicar Prova"
         verbose_name_plural = "Aplicar Provas"

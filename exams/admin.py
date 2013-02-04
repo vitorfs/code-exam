@@ -19,7 +19,13 @@ class UserExamAdmin(admin.ModelAdmin):
     date_hierarchy = 'expire_date'
     search_fields = ['user__username', 'user__first_name', 'user__last_name', 'exam__name']
 
-admin.site.register(Exam)
+class ExamAdmin(admin.ModelAdmin):
+    list_display = ['name', 'expire_date', 'subject', 'duration']
+    date_hierarchy = 'expire_date'
+    search_fields = ['name']
+    list_filter = ['expire_date', 'subject']
+
+admin.site.register(Exam, ExamAdmin)
 admin.site.register(ExamSubject)
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(QuestionSubject)

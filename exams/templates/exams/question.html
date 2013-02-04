@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
-{% block title %}
-Code Exam - {{ user_exam.exam }}
-{% endblock title %}
+{% block head_extra %}
+  <script type="text/javascript" src="{{ STATIC_URL }}js/question.js"></script>
+{% endblock head_extra %}
 
 {% block content %}
   <ul class="breadcrumb">
@@ -27,18 +27,4 @@ Code Exam - {{ user_exam.exam }}
       </div>
     </form>
   {% endif %}
-
-  <script type="text/javascript">
-    $(function () {
-      $("form#frm-answers input[type=radio]").click(function () {
-        var answer = $(this).val();
-        $.ajax({
-          url: '/prova/enviar-resposta/',
-          data: $('form#frm-answers').serialize(),
-          type: 'post',
-          cache: false
-        });
-      });
-    });
-  </script>
 {% endblock content %}
