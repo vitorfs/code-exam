@@ -10,5 +10,35 @@ Code Exam - {{ user_exam.exam }}
     <li><a href="/prova/{{ user_exam.id }}">Prova</a> <span class="divider">/</span></li>
     <li class="active">Questão</li>
   </ul>
-  <h2>{{ question.question }}</h2>
+  <p class="lead">{{ question.question }}</p>
+  <pre>{{ question.example }}</pre>
+  <p>Escolha a resposta correta:</p>
+  {% if answers %}
+    <form id="frm-answers">
+      {% csrf_token %}
+      <input type="hidden" name="user-exam-id" value="{{ user_exam.id }}">
+      <input type="hidden" name="question-id" value="{{ question.id }}">
+      {% for answer in answers %}
+        <label class="radio"><input type="radio" name="rb-answer" value="{{ answer.id }}" {% if user_answer.closed_answer.id == answer.id %} checked {% endif %}> {{ answer.letter }}) {{ answer.answer }}</label>
+      {% endfor %}
+      <div class="form-actions">
+        <button type="button" class="btn"><i class="icon-chevron-left"></i> Anterior</button>
+        <button type="button" class="btn">Próxima <i class="icon-chevron-right"></i></button>
+      </div>
+    </form>
+  {% endif %}
+
+  <script type="text/javascript">
+    $(function () {
+      $("form#frm-answers input[type=radio]").click(function () {
+        var answer = $(this).val();
+        $.ajax({
+          url: '/send-answer/',
+          data: $('form#frm-answers').serialize(),
+          type: 'post',
+          cache: false
+        });
+      });
+    });
+  </script>
 {% endblock content %}

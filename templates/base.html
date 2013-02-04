@@ -12,18 +12,32 @@
     <div class="navbar navbar-inverse">
       <div class="navbar-inner">
         <div class="container">
-          <a class="brand" href="#">Code Exam</a>
+          <a class="brand" href="/">Code Exam</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#about">Sobre</a></li>
-              <li><a href="#contact">Contact</a></li>
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/minhas-provas/">Minhas Provas</a></li>
+              <li><a href="/sobre/">Sobre</a></li>
+              <li><a href="/contato/">Contato</a></li>
+            </ul>
+            <ul class="nav pull-right">
+              {% if user %}
+                <li><a href="/logout/">Logout</a></li>
+              {% else %}
+                <li><a href="/login/">Login</a></li>
+              {% endif %}
             </ul>
           </div>
         </div>
       </div>
     </div>
     <div class="container">
+      {% if message %}
+        <div class="alert alert-{{ message_severity }}">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message }}
+        </div>
+      {% endif %}
       {% block content %}
       {% endblock content %}
     </div>
