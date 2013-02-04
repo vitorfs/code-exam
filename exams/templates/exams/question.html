@@ -33,7 +33,7 @@ Code Exam - {{ user_exam.exam }}
       $("form#frm-answers input[type=radio]").click(function () {
         var answer = $(this).val();
         $.ajax({
-          url: '/send-answer/',
+          url: '/prova/enviar-resposta/',
           data: $('form#frm-answers').serialize(),
           type: 'post',
           cache: false
