@@ -5,6 +5,11 @@ from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from exams.models import UserExam, Question, Answer, UserExamAnswers
 
+def user_exams(request):
+    user_exam_list = UserExam.objects.filter(user__id=request.user.id)
+    context = RequestContext(request, {'user_exam_list': user_exam_list,})
+    return render_to_response('exams/user_exams.html', context)
+
 def exam(request, exam_id):
     user_exam = UserExam.objects.get(pk=exam_id)
     if (request.user.id == user_exam.user.id):

@@ -108,7 +108,9 @@ class UserExam(models.Model):
     def get_progress(self):
         total_questions = self.exam.questions.count()
         answered_questions = UserExamAnswers.objects.filter(user_exam__id=self.id).count()
-        return answered_questions / total_questions
+        current_progress = float(answered_questions) / float(total_questions) * 100
+        current_progress = int(round(current_progress))
+        return str(current_progress) + '%'
 
     class Meta:
         verbose_name = "Aplicar Prova"

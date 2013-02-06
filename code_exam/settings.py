@@ -1,3 +1,5 @@
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
+
 from unipath import Path
 PROJECT_DIR = Path(__file__).parent
 
@@ -114,6 +116,10 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     PROJECT_DIR.parent.child('templates'),
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = TCP + (
+    'django.core.context_processors.request',
 )
 
 INSTALLED_APPS = (

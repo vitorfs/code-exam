@@ -6,13 +6,9 @@ from exams.models import UserExam
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as django_login, logout as django_logout
 
-def homepage(request):
-    if request.user.is_authenticated():
-        user_exam_list = UserExam.objects.filter(user__id=request.user.id)
-        context = RequestContext(request, {'user_exam_list': user_exam_list,})
-        return render_to_response('index.html', context)
-    else:
-        return redirect('/login/')
+def home(request):
+    context = RequestContext(request)
+    return render_to_response('home/index.html', context)
 
 def login(request):
     if request.method == 'POST':
