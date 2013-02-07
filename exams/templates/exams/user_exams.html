@@ -4,33 +4,44 @@
   <ul class="breadcrumb">
     <li class="active">Home</li>
   </ul>
-  <h2>Minhas Provas</h2>
+  <h2>Provas</h2>
   {% if user_exam_list %}
-      <table class="table table-bordered table-striped">
-        <thead>
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Prova</th>
+          <th>Data Limite</th>
+          <th>Progresso</th>
+          <th>Status</th>
+          <th>Ação</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for exam in user_exam_list %}
           <tr>
-            <th>Código</th>
-            <th>Prova</th>
-            <th>Data Limite</th>
-            <th>Progresso</th>
-            <th>Ação</th>
+            <td>{{ exam.id }}</td>
+            <td>{{ exam.exam }}</td>
+            <td {% if exam.has_expired and not exam.end_time %} style="color: red;" {% endif %}>{{ exam.expire_date|date:"d/m/Y à\s H:i" }}</td>
+            <td>{{ exam.get_progress }}</td>
+            <td>{{ exam.get_status }}</td>
+            <td>
+              {% if not exam.has_expired %}
+                {% if not exam.start_time %}
+                  <a href="/prova/{{ exam.id }}/iniciar/" class="btn btn-small btn-success">Iniciar</a>
+                {% elif exam.start_time and not exam.end_time %}
+                  <a href="/prova/{{ exam.id }}/" class="btn btn-small btn-warning">Continuar</a>
+                  {% if exam.get_progress == '100%' %}
+                    <a href="/prova/{{ exam.id }}/enviar/" class="btn btn-small btn-primary">Enviar</a>
+                  {% endif %}
+                {% endif %}
+              {% endif %}
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          {% for exam in user_exam_list %}
-            <tr>
-              <td>{{ exam.id }}</td>
-              <td>{{ exam.exam }}</td>
-              <td>{{ exam.expire_date }}</td>
-              <td>{{ exam.get_progress }}</td>
-              <td>
-                <a href="/prova/{{exam.id}}/" class="btn btn-success"><i class="icon-ok icon-white"></i> Iniciar Prova</a>
-              </td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+        {% endfor %}
+      </tbody>
+    </table>
   {% else %}
-      <p>Nenhuma prova cadastrada.</p>
+    <p>Nenhuma prova cadastrada.</p>
   {% endif %}
 {% endblock content %}

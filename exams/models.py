@@ -93,7 +93,7 @@ class UserExam(models.Model):
          return u"%s %s" % (self.user, self.exam)
 
     def has_finished(self):
-        if self.end_time:
+        if self.start_time and self.end_time:
             return True
         else:
             return False
@@ -112,6 +112,17 @@ class UserExam(models.Model):
         current_progress = int(round(current_progress))
         return str(current_progress) + '%'
 
+    def get_status(self):
+        if self.has_finished():
+            return 'Finalizada'
+        elif self.has_expired():
+            return 'Expirada'
+        elif self.start_time and not self.end_time:
+            return 'Em Andamento'
+        else:
+            return 'Nova'
+    get_status.short_description = 'Status'
+    
     class Meta:
         verbose_name = "Aplicar Prova"
         verbose_name_plural = "Aplicar Provas"

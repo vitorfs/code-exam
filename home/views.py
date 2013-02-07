@@ -6,10 +6,6 @@ from exams.models import UserExam
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as django_login, logout as django_logout
 
-def home(request):
-    context = RequestContext(request)
-    return render_to_response('home/index.html', context)
-
 def login(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -18,9 +14,12 @@ def login(request):
         if user is not None:
             if user.is_active:
                 django_login(request, user)
-                return redirect('/')
+                if 'next' in request.GET:
+                    return redirect(request.GET['next'])
+                else:
+                    return redirect('/')
             else:
-                messages.add_message(request, messages.ERROR, 'Sua conta foi desativada.')
+                messages.add_message(request, messages.ERROR, 'Sua conta está desativada.')
                 context = RequestContext(request)
                 return render_to_response('home/login.html', context)
         else:

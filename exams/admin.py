@@ -14,12 +14,13 @@ class QuestionAdmin(admin.ModelAdmin):
 
 class UserExamAdmin(admin.ModelAdmin):
     fields = ['user', 'exam', 'expire_date']
-    list_display = ['id', 'user', 'exam', 'expire_date', 'has_finished', 'has_expired']
+    list_display = ['id', 'user', 'exam', 'expire_date', 'get_status', 'has_finished', 'has_expired']
     list_filter = ['expire_date']
     date_hierarchy = 'expire_date'
     search_fields = ['user__username', 'user__first_name', 'user__last_name', 'exam__name']
 
 class ExamAdmin(admin.ModelAdmin):
+    filter_horizontal = ['questions']
     list_display = ['name', 'expire_date', 'subject', 'duration']
     date_hierarchy = 'expire_date'
     search_fields = ['name']

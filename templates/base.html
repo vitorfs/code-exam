@@ -21,40 +21,41 @@
           </a>          
           <a class="brand" href="/">Code Exam</a>
           <div class="nav-collapse collapse">
-            <ul class="nav">
-              <li><a href="/">Home</a></li>
-              <li><a href="/sobre/">Sobre</a></li>
-              <li><a href="/contato/">Contato</a></li>
-            </ul>
-            <ul class="nav pull-right">
-              {% if user.is_authenticated %}
+            {% if user.is_authenticated %}
+              <ul class="nav">
+                <li><a href="/">Home</a></li>
+              </ul>
+              <ul class="nav pull-right">
                 <li class="dropdown">
                   <a data-toggle="dropdown" class="dropdown-toggle" href="#">{{ user.get_full_name }} <b class="caret"></b></a>
                   <ul class="dropdown-menu">
-                    {% if user.is_staff %}
-                      <li><a href="/admin/"><i class="icon-wrench"></i> Administrativo</a></li>
-                    {% endif %}
-                    <li><a href="/prova/"><i class="icon-folder-open"></i> Minhas Provas</a></li>
+                  {% if user.is_staff %}
+                    <li><a href="/admin/"><i class="icon-wrench"></i> Administrativo</a></li>
                     <li class="divider"></li>
+                  {% endif %}
                     <li><a href="/logout/"><i class="icon-off"></i> Logout</a></li>
                   </ul>
-                </li>              
-              {% else %}
+                </li>
+              </ul>
+            {% else %}
+              <ul class="nav pull-right">
                 <li><a href="/login/">Login</a></li>
-              {% endif %}
-            </ul>
+              </ul>
+            {% endif %}
           </div>
         </div>
       </div>
     </div>
+    
     {% block header %}
     {% endblock header %}
+
     <div class="container" style="padding-top: 20px;">
       {% if messages %}
         {% for message in messages %}
           <div class="alert alert-{{ message.tags }} fade in">
-              <button type="button" class="close" data-dismiss="alert">&times;</button>
-              {{ message }}
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message }}
           </div>        
         {% endfor %}
       {% endif %}
@@ -62,10 +63,6 @@
       {% block content %}
       {% endblock content %}
     </div>
-    <script>
-      $(function () {
-        $('ul.nav li a[href="{{request.path}}"]').closest('li').addClass('active');
-      });
-    </script>
+    <script>$(function () { $('ul.nav li a[href="{{request.path}}"]').closest('li').addClass('active'); });</script>
 </body>
 </html>

@@ -5,11 +5,9 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    (r'^$', 'home.views.home'),
-    (r'^login/', 'home.views.login'),
-    (r'^logout/', 'home.views.logout'),
-    (r'^sobre/', 'home.views.home'),
-    (r'^contato/', 'home.views.home'),
+    (r'^$', 'exams.views.user_exams'),
+    (r'^login/$', 'home.views.login'),
+    (r'^logout/$', 'home.views.logout'),
     url(r'^prova/', include('exams.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )

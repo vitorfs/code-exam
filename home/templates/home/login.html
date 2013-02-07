@@ -5,7 +5,7 @@
 {% endblock head_extra %}
 
 {% block content %}
-  <form class="form-signin" method="post" action="/login/">
+  <form class="form-signin" method="post" action="">
     {% csrf_token %}
     <h2 class="form-signin-heading">Efetuar login</h2>
     <input type="text" placeholder="Usuário" class="input-block-level" name="username">
@@ -15,5 +15,6 @@
       <input type="checkbox" value="remember-me"> Lembrar login
     </label>
     <button type="submit" class="btn btn-large btn-primary">Entrar</button>
+    <input type="hidden" name="next" value="/prova/">
   </form>
 {% endblock content %}
