@@ -1,4 +1,5 @@
-﻿from exams.models import Exam, Question, Answer, ExamSubject, QuestionSubject, QuestionDificulty, UserExam
+﻿# -*- coding: utf-8 -*-
+from exams.models import Exam, Question, Answer, ExamSubject, QuestionSubject, QuestionDificulty, UserExam
 from django.contrib import admin
 
 class AnswerInline(admin.TabularInline):
